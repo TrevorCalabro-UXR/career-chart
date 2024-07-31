@@ -1,0 +1,50 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Job', 'Months'],
+        ['ARRIS', 36],
+        ['Minitab', 104],
+        ['Siemens and Aten', 40],
+        ['Jungle Scout and Bowery', 26]
+      ]);
+
+      var options = {
+        title: 'My Career Duration',
+        pieSliceText: 'label',
+        tooltip: {isHtml: true},
+        slices: {
+          0: {offset: 0.1},
+          1: {offset: 0.1},
+          2: {offset: 0.1},
+          3: {offset: 0.1}
+        }
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+      chart.draw(data, options);
+
+      google.visualization.events.addListener(chart, 'onmouseover', function(event) {
+        var row = event.row;
+        var tooltipText = '';
+        switch(row) {
+          case 0: tooltipText = 'I learned UX basics by building touchscreen kiosks and watching users interact with them live.'; break;
+          case 1: tooltipText = 'Minitab is the "X-Men school for stats," where I learned Advanced Statistics: Quant.'; break;
+          case 2: tooltipText = 'At Siemens, I developed a scalable UX research system, which I systematized and reused for Aten\'s clients.'; break;
+          case 3: tooltipText = 'At Jungle Scout and Bowery, I worked with the C-Suite to create custom UX research systems for growing startups.'; break;
+        }
+        document.getElementById('tooltip').innerHTML = tooltipText;
+      });
+    }
+  </script>
+</head>
+<body>
+  <div id="piechart" style="width: 900px; height: 500px;"></div>
+  <div id="tooltip" style="margin-top: 20px;"></div>
+</body>
+</html>
